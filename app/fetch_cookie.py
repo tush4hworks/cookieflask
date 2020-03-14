@@ -4,7 +4,7 @@ from collections import namedtuple
 
 finder = namedtuple('finder', ['findby', 'value'])
 
-def get_cookie(baseurl, username, password, username_finder, password_finder, button_finder):
+def get_cookie(baseurl, username, password, username_finder, password_finder, button_finder, cookie_filter = None):
 	try:
 		driver = webdriver.Chrome()
 		driver.implicitly_wait(30)
@@ -12,7 +12,10 @@ def get_cookie(baseurl, username, password, username_finder, password_finder, bu
 		getattr(driver, 'find_element_by_{}'.format(username_finder.findby))(username_finder.value).send_keys(username)
 		getattr(driver, 'find_element_by_{}'.format(password_finder.findby))(password_finder.value).send_keys(password)
 		getattr(driver, 'find_element_by_{}'.format(button_finder.findby))(button_finder.value).click()
-		c = driver.get_cookies()
+		if cookie_filter:
+			c = driver.get_cookie(cookie_filter)
+		else:
+			c = driver.get_cookies()
 		driver.quit()
 		return c
 	except Exception as e:
