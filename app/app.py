@@ -13,7 +13,6 @@ def newcookie():
 	try:
 		data = validate_request(request)
 		if data.get('username_finder'):
-			print("here")
 			username_finder = finder(**data.get('username_finder'))
 		if data.get('password_finder'):
 			password_finder = finder(**data.get('password_finder'))
