@@ -6,8 +6,13 @@ finder = namedtuple('finder', ['findby', 'value'])
 
 def get_cookie(baseurl, username, password, username_finder, password_finder, button_finder, cookie_filter = None):
 	try:
-		driver = webdriver.Chrome()
-		driver.implicitly_wait(30)
+		#below args are required for chrome to work in docker. This may break when run standalone
+		chrome_options = webdriver.ChromeOptions()
+		chrome_options.add_argument('--no-sandbox')
+		chrome_options.add_argument('--headless')
+		chrome_options.add_argument('--disable-gpu')
+		driver = webdriver.Chrome(chrome_options=chrome_options)
+		driver.implicitly_wait(20)
 		driver.get(baseurl)
 		getattr(driver, 'find_element_by_{}'.format(username_finder.findby))(username_finder.value).send_keys(username)
 		getattr(driver, 'find_element_by_{}'.format(password_finder.findby))(password_finder.value).send_keys(password)
