@@ -5,6 +5,8 @@ Steps:
 kubectl  apply -f deploy_cookieflask.yaml 
 2. Create service.
 kubectl  apply -f service_cookieflask.yaml
+3. Create ingress.
+kubectl  apply -f ingress_cookieflask.yaml 
 
-Servie type is loadBalancer which uses internal load balancing.
+Service type is loadBalancer which uses internal load balancing.
 https://cloud.google.com/kubernetes-engine/docs/how-to/internal-load-balancing
