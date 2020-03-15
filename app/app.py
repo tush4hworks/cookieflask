@@ -38,7 +38,7 @@ def try_get_cookie(request, cookie_filter=None):
     if data.get('password_finder'):
         password_finder = finder(**data.get('password_finder'))
     if data.get('button_finder'):
-        button_finder = finder(**data.get('password_finder'))
+        button_finder = finder(**data.get('button_finder'))
 
     fetched_cookies = get_cookie(data.get('baseurl'), data.get('username'), data.get('password'), username_finder,
                                  password_finder, button_finder, cookie_filter)
