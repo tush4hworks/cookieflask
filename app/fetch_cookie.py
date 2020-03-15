@@ -11,6 +11,7 @@ def get_cookie(baseurl, username, password, username_finder, password_finder, bu
 		chrome_options.add_argument('--no-sandbox')
 		chrome_options.add_argument('--headless')
 		chrome_options.add_argument('--disable-gpu')
+		chrome_options.add_argument('--ignore-certificate-errors')
 		driver = webdriver.Chrome(chrome_options=chrome_options)
 		driver.implicitly_wait(20)
 		driver.get(baseurl)
