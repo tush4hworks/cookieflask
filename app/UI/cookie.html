@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css" />
+    <title>Cookie Fetcher</title>
+</head>
+
+<body>
+    <div class="container">
+        <form id="inputForm">
+
+            <div>
+                <label for="baseurl">IdentityProviderUrl</label>
+                <input class="u-full-width" type="url" id="baseurl">
+            </div>
+            <div>
+                <label for="username">Username</label>
+                <input class="u-full-width" type="text" id="username">
+            </div>
+            <div>
+                <label for="password">Password</label>
+                <input class="u-full-width" type="password" id="password">
+            </div>
+            <div>
+                <label for="username_finder_findby">Username:Selector</label>
+                <input class="u-full-width" type="text" id="username_finder_findby" value="name">
+            </div>
+            <div>
+                <label for="username_to_find">Username:Select</label>
+                <input class="u-full-width" type="text" id="username_to_find" value="username">
+            </div>
+            <div>
+                <label for="password_finder_findby">Password:Selector</label>
+                <input class="u-full-width" type="text" id="password_finder_findby" value="name">
+            </div>
+            <div>
+                <label for="password_to_find">Password:Select</label>
+                <input class="u-full-width" type="text" id="password_to_find" value="password">
+            </div>
+            <div>
+                <label for="button_finder_findby">LoginButton:Selector</label>
+                <input class="u-full-width" type="text" id="button_finder_findby" value="xpath">
+            </div>
+            <div>
+                <label for="button_to_find">LoginButton:Select</label>
+                <input class="u-full-width" type="text" id="button_to_find" value="//*[@type='submit']">
+            </div>
+            <div>
+                <label for="cookie_filter">Cookie filter</label>
+                <input class="u-full-width" type="text" id="cookie_filter" value="cdp-session-token">
+            </div>
+            <input class="button-primary" href="#" type="submit" value="Get Cookie" id="cookieOne">
+            <input class="button-primary" href="#" type="submit" value="Get Cookies" id="cookieAll">
+
+        </form>
+    </div>
+    <div class="container">
+        <div id="loading" style="display: none">
+            <img src="img/loading.gif" alt="">
+        </div>
+        <div class="output" id="output">
+
+        </div>
+    </div>
+    <script src="cookiefetcher.js"></script>
+</body>
+
+</html>
