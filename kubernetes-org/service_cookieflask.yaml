@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: cookieflaskservice
+  name: cookieflaskservicev2
   annotations:
     cloud.google.com/load-balancer-type: "Internal"
   labels:
-    run: cookieflask
+    run: cookieflaskv2
 spec:
   type: LoadBalancer
   ports:
@@ -13,5 +13,9 @@ spec:
     targetPort: 5001
     protocol: TCP
     name: http
+  - port: 5002
+    targetPort: 5002
+    protocol: TCP
+    name: ui
   selector:
-    run: cookieflask
+    run: cookieflaskv2

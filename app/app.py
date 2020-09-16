@@ -1,9 +1,11 @@
 from flask import Flask, request, make_response, jsonify, abort
 
 from fetch_cookie import get_cookie, finder
+from flask_cors import CORS
 
 app = Flask(__name__)
 
+CORS(app)
 
 @app.route("/api/cookie", methods=['POST'])
 def newcookies():
@@ -24,7 +26,7 @@ def newcookie(cookiename):
 def validate_request(request):
     if not (request.json) or not all(
             [request.json.get('baseurl'), request.json.get('username'), request.json.get('password')]):
-        raise Exception("Invalid Input")
+        raise Exception("Invalid Input:baseurl, username and password are mandatory")
     return request.json
 
 

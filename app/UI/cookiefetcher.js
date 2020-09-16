@@ -72,18 +72,14 @@ function displayCookies(data, color) {
     output_div.style.color = color;
     if (typeof data === 'string') {
         output_div.textContent = data;
-    } else if (Array.isArray(data)) {
-        data.forEach(ele => {
-            output_div.innerHTML += getHtmlCookieContent(ele);
-        })
-
     } else if (typeof data === 'object') {
-        output_div.innerHTML = getHtmlCookieContent(data);
+        output_div.appendChild(document.createTextNode(JSON.stringify(data)));
     }
 };
 
 
 function cookiefetch(url) {
+    output_div.innerHTML = '';
     let requestObj = new CookieRequest(idp_select.value, user_select.value, pass_select.value);
     requestObj.setUserFinder(new Finder(user_finder_select.value, user_finder_find.value));
     requestObj.setPasswordFinder(new Finder(pass_finder_select.value, pass_finder_find.value));
@@ -115,10 +111,10 @@ function cookiefetch(url) {
 
 function fetchOneCookie(e) {
     e.preventDefault();
-    cookiefetch(`http://localhost:5001/api/cookie/${cookie_select.value}`);
+    cookiefetch(`/api/cookie/${cookie_select.value}`);
 };
 
 function fetchAllCookies(e) {
     e.preventDefault();
-    cookiefetch(`http://localhost:5001/api/cookie`);
+    cookiefetch(`/api/cookie`);
 };

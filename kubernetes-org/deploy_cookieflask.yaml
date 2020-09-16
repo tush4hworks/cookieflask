@@ -1,19 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cookieflask
+  name: cookieflaskv2
 spec:
   selector:
     matchLabels:
-      run: cookieflask
+      run: cookieflaskv2
   replicas: 3
   template:
     metadata:
       labels:
-        run: cookieflask
+        run: cookieflaskv2
     spec:
       containers:
-      - name: dockercookieflask
-        image: registry.eng.hortonworks.com/tsharma/docker_cookieflask:latest
+      - name: dockercookieflaskv2
+        image: registry.eng.hortonworks.com/tsharma/docker_cookieflaskv2:latest
         ports:
         - containerPort: 5001
+        - containerPort: 5002
