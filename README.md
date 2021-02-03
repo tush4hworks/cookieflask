@@ -174,4 +174,5 @@ payload = {
 }
 
 resp = requests.post('https://10.101.91.63/api/cookie/cdp-session-token', json=payload, verify=False)
-token = resp.json()['value']```
+token = resp.json()['value']
+```
