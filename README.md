@@ -17,14 +17,16 @@ The payload to these requests looks like:
 
 _Necessary params:_
 
-`{
+`````{
 "baseurl":"https://44.232.15.145:8443/auth/realms/cdpe2e-mow-stage-realm/protocol/saml/clients/samlclient",
 "username":"cdpe2e_stagecookieuser@keycloak.com",
 "password":"password"
 }
-`
+`````
+
 _With optional params:_
-`
+
+```
 {
 "baseurl":"https://44.232.15.145:8443/auth/realms/cdpe2e-mow-stage-realm/protocol/saml/clients/samlclient",
 "username":"cdpe2e_stagecookieuser@keycloak.com",
@@ -33,8 +35,8 @@ _With optional params:_
 "password_finder":{"findby":"name", "value":"password"},
 "button_finder":{"findby":"xpath","value":"//*[@type='submit']"}
 }
-`
 
+```
 
 ###### How it works:
 
@@ -52,17 +54,19 @@ Password box
 Submit button
 
 The default finders to locate them are specified as (they are consistent with keycloak and okta):
-`username_finder = finder('name','username')
+```
+username_finder = finder('name','username')
 password_finder = finder('name', 'password')
-button_finder = finder('xpath','//*[@type="submit"]')`
+button_finder = finder('xpath','//*[@type="submit"]')
 
+```
 However they can be overridden by the user who makes the request by specifying them in optional params as mentioned above.
 
 It works for all of these selenium locators:
+```
+['find_element_by_class_name', 'find_element_by_css_selector', 'find_element_by_id', 'find_element_by_link_text', 'find_element_by_name', 'find_element_by_partial_link_text', 'find_element_by_tag_name', 'find_element_by_xpath']
 
-**`['find_element_by_class_name', 'find_element_by_css_selector', 'find_element_by_id', 'find_element_by_link_text', 'find_element_by_name', 'find_element_by_partial_link_text', 'find_element_by_tag_name', 'find_element_by_xpath']**
-`
-
+```
 If a user wants to override, he has to specify the method suffix after find_element_by_, for example in case he wants the username to be located by class_name, he can provide this attribute in his request:
 "username_finder": {"findby":"class_name", "value":"username class"}
 
@@ -122,31 +126,33 @@ status:
 _Live Service:_
 
 MacBook-Pro-4:kubernetes-org tsharma$ kubectl get service cookieflaskservice2 -n tsharma
-
-`kubectl get service cookieflaskservicev2 -n tsharma
+````
+kubectl get service cookieflaskservicev2 -n tsharma
 NAME                   TYPE           CLUSTER-IP       EXTERNAL-IP               PORT(S)                         AGE
-cookieflaskservicev2   LoadBalancer   10.108.116.214   10.101.91.5,10.101.91.5   5001:30923/TCP,5002:30596/TCP   144d`
+cookieflaskservicev2   LoadBalancer   10.108.116.214   10.101.91.5,10.101.91.5   5001:30923/TCP,5002:30596/TCP   144d
 
 
-
+````
 _Live Pods:_
 
 MacBook-Pro-4:kubernetes-org tsharma$ kubectl get pods -n tsharma -l run=cookieflask
-`
+
+```
 NAME                             READY   STATUS    RESTARTS   AGE
 cookieflaskv2-686f58d489-lns2g   1/1     Running   0          144d
 cookieflaskv2-686f58d489-m9m5t   1/1     Running   0          144d
 cookieflaskv2-686f58d489-rpld5   1/1     Running   0          144d
-`
 
 
+```
 
 
 The service can be reached at IngressHostname:80 (if added to /etc/hosts), IngressIP:80, or EXTERNAL-IP:5001.
 
 
 
-###### Python Client Snippet
+###### Sample Python Client Snippet
+
 ```
 import requests
 payload = {
