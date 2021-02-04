@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: dockercookieflaskv2
-        image: registry.eng.hortonworks.com/tsharma/docker_cookieflaskv2:latest
+        image: docker-registry.infra.cloudera.com/e2einterop/docker_cookieflaskv2:latest
         ports:
         - containerPort: 5001
         - containerPort: 5002
