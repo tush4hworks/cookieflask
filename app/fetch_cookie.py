@@ -33,11 +33,3 @@ def get_cookie(baseurl, username, password, username_finder, password_finder, bu
     except Exception as e:
         driver.quit()
         raise
-
-
-if __name__ == "__main__":
-
-    x = get_cookie("https://cldre2e.oktapreview.com/app/cldre2e_e2egovclouddev_1/exk17itut5w7ndIF90h8/sso/saml",
-               "hrt_alpha101", "P@ssW0rd123", finder("name", "username"), finder("name", "password"),
-               finder("xpath", "//*[@type='submit']"), cookie_filter="cdp-session-token")
-    print(x)
