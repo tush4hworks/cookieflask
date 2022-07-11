@@ -1,4 +1,4 @@
 flask
-selenium
+selenium==4.2.0
 uwsgi
 flask-cors

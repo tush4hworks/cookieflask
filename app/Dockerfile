@@ -27,4 +27,4 @@ WORKDIR /cookieflask
 COPY . /cookieflask
 RUN pip install -r requirements.txt
 RUN cp nginx.conf /etc/nginx/nginx.conf
-CMD service nginx restart ; uwsgi -s /tmp/cookieflask.sock --chmod-socket=777 --uid www-data --gid www-data --manage-script-name --mount /=app:app --processes 4 --threads 2
+CMD service nginx restart ; uwsgi -s /tmp/cookieflask.sock --chmod-socket=777 --uid www-data --gid www-data --manage-script-name --mount /=app:app --processes 4 --threads 2 --http-timeout 30 --socket-timeout 30
