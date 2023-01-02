@@ -4,7 +4,7 @@ from collections import namedtuple
 from selenium import webdriver
 
 finder = namedtuple('finder', ['findby', 'value'])
-_ttf = 10
+_ttf = 30
 
 
 def get_cookie(baseurl, username, password, username_finder, password_finder, button_finder, cookie_filter=None):
@@ -15,6 +15,7 @@ def get_cookie(baseurl, username, password, username_finder, password_finder, bu
         chrome_options.add_argument('--headless')
         chrome_options.add_argument('--disable-gpu')
         chrome_options.add_argument('--ignore-certificate-errors')
+        chrome_options.add_argument('--disable-dev-shm-usage')
         driver = webdriver.Chrome(chrome_options=chrome_options)
         driver.implicitly_wait(20)
         driver.get(baseurl)

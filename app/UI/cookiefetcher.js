@@ -111,10 +111,10 @@ function cookiefetch(url) {
 
 function fetchOneCookie(e) {
     e.preventDefault();
-    cookiefetch(`/api/cookie/${cookie_select.value}`);
+    cookiefetch(`/fetch/api/cookie/${cookie_select.value}`);
 };
 
 function fetchAllCookies(e) {
     e.preventDefault();
-    cookiefetch(`/api/cookie`);
+    cookiefetch(`/fetch/api/cookie`);
 };

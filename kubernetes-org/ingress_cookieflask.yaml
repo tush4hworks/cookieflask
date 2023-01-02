@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: milkbikisv2
@@ -6,11 +6,17 @@ spec:
   rules:
   - http:
       paths:
-      - path: /
+      - path: /fetch
+        pathType: Prefix
         backend:
-          serviceName: cookieflaskservicev2
-          servicePort: 5001
-      - path: /UI
+          service:
+            name: cookieflaskservicev2
+            port:
+              number: 5001
+      - path: /fetch/UI
+        pathType: Prefix
         backend:
-          serviceName: cookieflaskservicev2
-          servicePort: 5002
+          service:
+            name: cookieflaskservicev2
+            port:
+              number: 5002
