@@ -74,7 +74,7 @@ If a user wants to override, he has to specify the method suffix after find_elem
 
 ###### UI:
 
-The service can also be accessed from UI at https://10.101.91.63/UI/
+The service can also be accessed from UI at https://10.17.165.205/UI/
 
 
 ###### Kubernetes:
