@@ -7,7 +7,7 @@ finder = namedtuple('finder', ['findby', 'value'])
 _ttf = 30
 
 
-def get_cookie(baseurl, username, password, username_finder, password_finder, button_finder, cookie_filter=None):
+def get_cookie(baseurl, username, password, username_finder, password_finder, button_finder, account_owner_finder, cookie_filter=None):
     try:
         # below args are required for chrome to work in docker. This may break when run standalone
         chrome_options = webdriver.ChromeOptions()
@@ -22,6 +22,11 @@ def get_cookie(baseurl, username, password, username_finder, password_finder, bu
         getattr(driver, 'find_element_by_{}'.format(username_finder.findby))(username_finder.value).send_keys(username)
         getattr(driver, 'find_element_by_{}'.format(password_finder.findby))(password_finder.value).send_keys(password)
         getattr(driver, 'find_element_by_{}'.format(button_finder.findby))(button_finder.value).click()
+        if account_owner_finder.findby and account_owner_finder.value:
+            accounts = getattr(driver, 'find_elements_by_{}'.format(account_owner_finder.findby))(account_owner_finder.value)
+            if len(accounts) != 1:
+                raise Exception(f'Number of accounts with account owner: {account_owner_finder.value} != 1')
+            accounts[0].click()
         if cookie_filter:
             c = driver.get_cookie(cookie_filter)
             _start_time = datetime.datetime.now()

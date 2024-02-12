@@ -34,6 +34,7 @@ def try_get_cookie(request, cookie_filter=None):
     username_finder = finder('name', 'username')
     password_finder = finder('name', 'password')
     button_finder = finder('xpath', '//*[@type="submit"]')
+    fullname_finder = finder(None, None)
     data = validate_request(request)
     if data.get('username_finder'):
         username_finder = finder(**data.get('username_finder'))
@@ -41,9 +42,10 @@ def try_get_cookie(request, cookie_filter=None):
         password_finder = finder(**data.get('password_finder'))
     if data.get('button_finder'):
         button_finder = finder(**data.get('button_finder'))
-
+    if data.get("fullname_finder"):
+        fullname_finder = finder(**data.get("fullname_finder"))
     fetched_cookies = get_cookie(data.get('baseurl'), data.get('username'), data.get('password'), username_finder,
-                                 password_finder, button_finder, cookie_filter)
+                                 password_finder, button_finder, fullname_finder, cookie_filter)
     return fetched_cookies
 
 
