@@ -1,7 +1,9 @@
 import datetime
+import logging
 from collections import namedtuple
 
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 
 finder = namedtuple('finder', ['findby', 'value'])
 _ttf = 30
@@ -16,14 +18,15 @@ def get_cookie(baseurl, username, password, username_finder, password_finder, bu
         chrome_options.add_argument('--disable-gpu')
         chrome_options.add_argument('--ignore-certificate-errors')
         chrome_options.add_argument('--disable-dev-shm-usage')
-        driver = webdriver.Chrome(chrome_options=chrome_options)
+        chrome_options.add_argument('--remote-debugging-pipe')
+        driver = webdriver.Chrome(options=chrome_options)
         driver.implicitly_wait(20)
         driver.get(baseurl)
-        getattr(driver, 'find_element_by_{}'.format(username_finder.findby))(username_finder.value).send_keys(username)
-        getattr(driver, 'find_element_by_{}'.format(password_finder.findby))(password_finder.value).send_keys(password)
-        getattr(driver, 'find_element_by_{}'.format(button_finder.findby))(button_finder.value).click()
+        driver.find_element(eval(f'By.{username_finder.findby.upper()}'), username_finder.value).send_keys(username)
+        driver.find_element(eval(f'By.{password_finder.findby.upper()}'), password_finder.value).send_keys(password)
+        driver.find_element(eval(f'By.{button_finder.findby.upper()}'), button_finder.value).click()
         if account_owner_finder.findby and account_owner_finder.value:
-            accounts = getattr(driver, 'find_elements_by_{}'.format(account_owner_finder.findby))(account_owner_finder.value)
+            accounts = driver.find_elements(eval(f'By.{account_owner_finder.findby.upper()}'), account_owner_finder.value)
             if len(accounts) != 1:
                 raise Exception(f'Number of accounts with account owner: {account_owner_finder.value} != 1')
             accounts[0].click()
@@ -37,5 +40,6 @@ def get_cookie(baseurl, username, password, username_finder, password_finder, bu
         driver.quit()
         return c
     except Exception as e:
+        logging.exception(e)
         driver.quit()
-        raise
+        raise e
