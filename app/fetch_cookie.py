@@ -1,5 +1,6 @@
 import datetime
 import logging
+logging.root.setLevel(logging.INFO)
 from collections import namedtuple
 
 from selenium import webdriver
@@ -27,9 +28,12 @@ def get_cookie(baseurl, username, password, username_finder, password_finder, bu
         driver.find_element(eval(f'By.{button_finder.findby.upper()}'), button_finder.value).click()
         if account_owner_finder.findby and account_owner_finder.value:
             accounts = driver.find_elements(eval(f'By.{account_owner_finder.findby.upper()}'), account_owner_finder.value)
-            if len(accounts) != 1:
-                raise Exception(f'Number of accounts with account owner: {account_owner_finder.value} != 1')
-            accounts[0].click()
+            if len(accounts) == 0:
+                logging.info(f'No accounts with account owner: {account_owner_finder.value} to select found')
+            elif len(accounts) > 1:
+                raise Exception(f'Number of accounts with account owner: {account_owner_finder.value} > 1')
+            else:
+                accounts[0].click()
         if cookie_filter:
             c = driver.get_cookie(cookie_filter)
             _start_time = datetime.datetime.now()
